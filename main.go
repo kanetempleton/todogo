@@ -100,6 +100,8 @@ func main() {
 
 	tasks = append(tasks, Task{ID: "1", Title: "Finish project", Completed: false})
 
+	var port = "8080"
+
 	// REST routes defined here
 	router.HandleFunc("/tasks", getAllTasks).Methods("GET")
 	router.HandleFunc("/tasks", createTask).Methods("POST")
@@ -107,7 +109,11 @@ func main() {
 	router.HandleFunc("/tasks/{taskID}", editTask).Methods("PUT")
 	router.HandleFunc("/tasks/{taskID}", deleteTask).Methods("DELETE")
 
+	fmt.Println("Running server on port "+port)
+
+	log.Fatal(http.ListenAndServe(":"+port, router))
 
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+
+
 }
